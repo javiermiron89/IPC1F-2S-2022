@@ -77,8 +77,7 @@ public class Clase1 {
                 bandera = false;
             }
         }
-        
-        
+
         //Sentencia DoWhile
         System.out.println("\n\n\nDO WHILE");
         boolean banderaDoWhile = true;
@@ -90,19 +89,17 @@ public class Clase1 {
             }
             numeroDoWhile++;
         } while (banderaDoWhile);
-        
-        
+
         //SENTENCIA FOR
         System.out.println("\n\n\nFOR");
-        
+
         for (int i = 0; i <= 6; i++) {
             System.out.println("Numero: " + i);
         }
-        
 
         //HACIENDO UN MENU CON WHILE
-        /*
         while (true) {
+            System.out.println("\n\n\n\n");
             int op = 0;
             System.out.println("MENU");
             System.out.println("1. Aritmetica");
@@ -117,6 +114,7 @@ public class Clase1 {
             switch (op) {
                 case 1:
                     System.out.println("Entre a Aritmetica");
+                    Aritmetica();
                     break;
                 case 2:
                     System.out.println("Entre a Trigonometria");
@@ -131,8 +129,49 @@ public class Clase1 {
                     break;
             }
         }
-        */
 
+    }
+
+    public static void Aritmetica() {
+        boolean seguirEnMenu = true;
+        while (seguirEnMenu) {
+            System.out.println("\n\n");
+            int opcion = 0;
+            System.out.println("ARITMETICAS");
+            System.out.println("1. Suma");
+            System.out.println("2. Resta");
+            System.out.println("3. Multiplicacion");
+            System.out.println("5. Regresar");
+            System.out.print("Ingrese un numero: ");
+            //El Scanner se encarga de recibir un dato desde el teclado del usuario y lo asigna a una variable
+            Scanner scan = new Scanner(System.in);
+            opcion = scan.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    System.out.print("Ingrese el primer numero: ");
+                    Scanner dato = new Scanner(System.in);
+                    int numero1 = dato.nextInt();
+                    System.out.print("\nIngrese el segundo numero: ");
+                    Scanner dato2 = new Scanner(System.in);
+                    int numero2 = dato2.nextInt();
+                    int resultado = numero1 + numero2;
+                    System.out.println("\nLa suma es: " + resultado);
+                    Scanner espera = new Scanner(System.in);
+                    String esperando = espera.nextLine();
+                    break;
+                case 2:
+                    System.out.println("Entre a Trigonometria");
+                    break;
+                case 3:
+                    System.out.println("Entre a Estadistica");
+                case 5:
+                    seguirEnMenu = false;
+                default:
+                    System.out.println("Entre al default");
+                    break;
+            }
+        }
     }
 
 }
