@@ -18,135 +18,132 @@ public class panel extends javax.swing.JFrame {
     //jlabel -> botones, txt
     JLabel[][] cuadriculaJuego;
     
-    
+    String direccion = "der";
+
     // hilos 
     private Thread hiloRepintar;
-    
-    
+
     //borde del tablero
     int izquierda = 0;
     int derecha = 10;
-    
-    
-    
+
     //
-    int x=1;
-    int y=1;
-    
-    
+    int x = 1;
+    int y = 1;
+
     //posicion inical del snake
     int snakex = 5;
     int snakey = 5;
-    
+
     //fruta
     int frutax = 1;
     int frutay = 1;
-    
-    
+
     // velocidad del sanke
-    int velocidad = 2000;
-    
-    
+    int velocidad = 1000;
+
     int contadorfrutas = 0;
-    
+
     /**
      * Creates new form panel
      */
-    public panel() {   
+    public panel() {
         initComponents();
         snakeGame();
     }
 
-    
-    
-    public void snakeGame(){
-        
+    public void snakeGame() {
+
         // visibilidad del panel
         this.jPanel1.setVisible(true);
-        
-        
+
         //matriz del juego
         cuadriculaJuego = new JLabel[10][10];
-        
-        
-        
+
         // un doble for para manejar la matriz
-        for (int i=0; i<cuadriculaJuego.length; i++){
-            for(int j=0; j<cuadriculaJuego.length; j++){
-                
+        for (int i = 0; i < cuadriculaJuego.length; i++) {
+            for (int j = 0; j < cuadriculaJuego.length; j++) {
+
                 //poder crear un label en esa poscion
                 cuadriculaJuego[i][j] = new JLabel();
                 cuadriculaJuego[i][j].setOpaque(true);
-                
+
                 cuadriculaJuego[i][j].setBackground(Color.white);
-                
+
                 // posicion x y posicion y
                 // tamanio de cada cuadro
-                cuadriculaJuego[i][j].setBounds(x,y,50,50);  
-                
-                x= x + 51;
+                cuadriculaJuego[i][j].setBounds(x, y, 50, 50);
+
+                x = x + 51;
                 this.jPanel1.add(cuadriculaJuego[i][j]);
             }
             y = y + 51;
-            x=1;
+            x = 1;
         }
-        
+
         // pintar el snake
         cuadriculaJuego[snakex][snakey].setBackground(Color.red);
-        
+
         // 1,1 de color verde
         cuadriculaJuego[frutax][frutay].setBackground(Color.green);
-        
-        
-        
+
         //arranque del hilo
-        
-        
     }
-    
-    
-    
+
     // funcion de mover el snake
-    public void mover(){
-        while(true){
-            snakey ++;
-            
-            //pintar
-            cuadriculaJuego[snakex][snakey].setBackground(Color.red);
-            
-            //despintar
-            cuadriculaJuego[snakex][snakey-1].setBackground(Color.white);
-            
+    public void mover() {
+        while (true) {
+            this.requestFocus(true);
+            if (this.direccion.equals("arr")) {
+                snakex--;
+                //pintar
+                cuadriculaJuego[snakex][snakey].setBackground(Color.red);
+                //despintar
+                cuadriculaJuego[snakex+1][snakey].setBackground(Color.white);
+            } else if (this.direccion.equals("aba")) {
+                snakex++;
+                //pintar
+                cuadriculaJuego[snakex][snakey].setBackground(Color.red);
+                //despintar
+                cuadriculaJuego[snakex-1][snakey].setBackground(Color.white);
+            } else if (this.direccion.equals("der")) {
+                snakey++;
+                //pintar
+                cuadriculaJuego[snakex][snakey].setBackground(Color.red);
+                //despintar
+                cuadriculaJuego[snakex][snakey - 1].setBackground(Color.white);
+            } else if (this.direccion.equals("izq")) {
+                snakey--;
+                //pintar
+                cuadriculaJuego[snakex][snakey].setBackground(Color.red);
+                //despintar
+                cuadriculaJuego[snakex][snakey + 1].setBackground(Color.white);
+            }
+
             // if 
             // el movimiento del snake
             // if el boton derecha se prociono snakey --;
             // el boton de hacia arriba fue procionad snakex --;
-            
-            
             //otro if para el choque
 //            if ( cuadriculaJuego[snakex][snakey] || || ||){
 //                System.out.println("hubo un choque");
 //            }
-                
-
             //if contarfutas >0
             // velocidad = velocidad - 0.30
-            
             // if cuadriculaJuego[snakex][snakey] == cuadriculaJuego[frutax][frutay]
             // cuadriculaJuego[frutax][frutay]. colro blanco
-            
-            
             //velocidad es una espera 
             try {
                 Thread.sleep(velocidad);
             } catch (InterruptedException ex) {
                 Logger.getLogger(panel.class.getName()).log(Level.SEVERE, null, ex);
-            }            
+            }
         }
     }
     
-    
-    
+    public void avanzar() {
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -158,10 +155,11 @@ public class panel extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btt_Izquierda = new javax.swing.JButton();
+        btt_Arriba = new javax.swing.JButton();
         btt_Abajo = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btt_Derecha = new javax.swing.JButton();
+        btt_Historial = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -171,14 +169,6 @@ public class panel extends javax.swing.JFrame {
         });
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jPanel1KeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jPanel1KeyTyped(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -198,12 +188,17 @@ public class panel extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("jButton2");
-
-        jButton3.setText("jButton3");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btt_Izquierda.setText("Izquierda");
+        btt_Izquierda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btt_IzquierdaActionPerformed(evt);
+            }
+        });
+
+        btt_Arriba.setText("Arriba");
+        btt_Arriba.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btt_ArribaActionPerformed(evt);
             }
         });
 
@@ -214,7 +209,19 @@ public class panel extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("jButton5");
+        btt_Derecha.setText("Derecha");
+        btt_Derecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btt_DerechaActionPerformed(evt);
+            }
+        });
+
+        btt_Historial.setText("Historial");
+        btt_Historial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btt_HistorialActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -230,14 +237,16 @@ public class panel extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(85, 85, 85)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btt_Arriba, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btt_Izquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(22, 22, 22)
                                 .addComponent(btt_Abajo, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(30, 30, 30)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(138, Short.MAX_VALUE))
+                        .addComponent(btt_Derecha, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btt_Historial, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,16 +257,19 @@ public class panel extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(68, 68, 68)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(89, 89, 89)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btt_Abajo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(48, 48, 48)))))
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btt_Historial, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(89, 89, 89)
+                        .addComponent(btt_Arriba, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btt_Derecha, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btt_Izquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btt_Abajo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -265,36 +277,48 @@ public class panel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        hiloRepintar = new Thread( () ->{
+        
+        hiloRepintar = new Thread(() -> {
             this.mover();
-        });    
+        });
         hiloRepintar.start();
-        for (String cadena : historial) {
-                System.out.println(cadena);
-        }
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
-        
-    }//GEN-LAST:event_jPanel1KeyPressed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         System.out.println("hola");
     }//GEN-LAST:event_formKeyPressed
 
-    private void jPanel1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyTyped
-        
-    }//GEN-LAST:event_jPanel1KeyTyped
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btt_ArribaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btt_ArribaActionPerformed
+        this.requestFocus(true);
+        this.direccion = "arr";
         historial.add("Preciono ARRIBA");
         //panel.cambiarDireccion("ar");
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btt_ArribaActionPerformed
 
     private void btt_AbajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btt_AbajoActionPerformed
-        //panel.cambiarDireccion("abajo");
+        this.requestFocus(true);
+        historial.add("Preciono ABAJO");
+        this.direccion = "aba";
     }//GEN-LAST:event_btt_AbajoActionPerformed
+
+    private void btt_DerechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btt_DerechaActionPerformed
+        this.requestFocus(true);
+        historial.add("Preciono DERECHA");
+        this.direccion = "der";
+    }//GEN-LAST:event_btt_DerechaActionPerformed
+
+    private void btt_IzquierdaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btt_IzquierdaActionPerformed
+        this.requestFocus(true);
+        historial.add("Preciono IZQUIERDA");
+        this.direccion = "izq";
+    }//GEN-LAST:event_btt_IzquierdaActionPerformed
+
+    private void btt_HistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btt_HistorialActionPerformed
+        for (String cadena : historial) {
+            System.out.println(cadena);
+        }
+    }//GEN-LAST:event_btt_HistorialActionPerformed
 
     /**
      * @param args the command line arguments
@@ -333,10 +357,11 @@ public class panel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btt_Abajo;
+    private javax.swing.JButton btt_Arriba;
+    private javax.swing.JButton btt_Derecha;
+    private javax.swing.JButton btt_Historial;
+    private javax.swing.JButton btt_Izquierda;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
