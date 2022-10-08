@@ -17,7 +17,7 @@ public class panel extends javax.swing.JFrame {
     ArrayList<String> historial = new ArrayList<>();
     //jlabel -> botones, txt
     JLabel[][] cuadriculaJuego;
-    
+
     String direccion = "der";
 
     // hilos 
@@ -92,20 +92,20 @@ public class panel extends javax.swing.JFrame {
 
     // funcion de mover el snake
     public void mover() {
-        while (true) {
+        System.out.println("Aca si imprime");
             this.requestFocus(true);
             if (this.direccion.equals("arr")) {
                 snakex--;
                 //pintar
                 cuadriculaJuego[snakex][snakey].setBackground(Color.red);
                 //despintar
-                cuadriculaJuego[snakex+1][snakey].setBackground(Color.white);
+                cuadriculaJuego[snakex + 1][snakey].setBackground(Color.white);
             } else if (this.direccion.equals("aba")) {
                 snakex++;
                 //pintar
                 cuadriculaJuego[snakex][snakey].setBackground(Color.red);
                 //despintar
-                cuadriculaJuego[snakex-1][snakey].setBackground(Color.white);
+                cuadriculaJuego[snakex - 1][snakey].setBackground(Color.white);
             } else if (this.direccion.equals("der")) {
                 snakey++;
                 //pintar
@@ -138,9 +138,15 @@ public class panel extends javax.swing.JFrame {
             } catch (InterruptedException ex) {
                 Logger.getLogger(panel.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+            
+        
     }
-    
+
+    public void actualizarIntervalo() {
+        this.lbl_intervalo.setText(String.valueOf(velocidad));
+        this.velocidad = this.velocidad - 50;
+    }
+
     public void avanzar() {
     }
 
@@ -160,6 +166,8 @@ public class panel extends javax.swing.JFrame {
         btt_Abajo = new javax.swing.JButton();
         btt_Derecha = new javax.swing.JButton();
         btt_Historial = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        lbl_intervalo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -223,6 +231,11 @@ public class panel extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Intervalo");
+
+        lbl_intervalo.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        lbl_intervalo.setText("mostrar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -230,23 +243,31 @@ public class panel extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(190, 190, 190)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btt_Arriba, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btt_Izquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(22, 22, 22)
-                                .addComponent(btt_Abajo, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(30, 30, 30)
-                        .addComponent(btt_Derecha, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btt_Historial, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(190, 190, 190)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(85, 85, 85)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btt_Arriba, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btt_Izquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(22, 22, 22)
+                                        .addComponent(btt_Abajo, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(30, 30, 30)
+                                .addComponent(btt_Derecha, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btt_Historial, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbl_intervalo, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,7 +281,11 @@ public class panel extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btt_Historial, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(89, 89, 89)
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(lbl_intervalo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
                         .addComponent(btt_Arriba, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,13 +298,18 @@ public class panel extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
+        lbl_intervalo.getAccessibleContext().setAccessibleName("lbl_Intervalo");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         hiloRepintar = new Thread(() -> {
-            this.mover();
+            while(true) {
+                this.mover();
+                this.actualizarIntervalo();
+            }
         });
         hiloRepintar.start();
 
@@ -362,6 +392,8 @@ public class panel extends javax.swing.JFrame {
     private javax.swing.JButton btt_Historial;
     private javax.swing.JButton btt_Izquierda;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbl_intervalo;
     // End of variables declaration//GEN-END:variables
 }
