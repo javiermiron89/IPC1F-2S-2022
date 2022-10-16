@@ -7,7 +7,7 @@ class IndexRouter {
         this.config();
     }
     config() {
-        this.router.get('/carnet', (req, res) => res.send("Hola Mundo"));
+        this.router.get('/hola', (req, res) => res.send("Hola Mundo"));
     }
 }
 const indexRouter = new IndexRouter();
