@@ -11,7 +11,7 @@ const todosJugadores = [
         Imagen: "https://cdn.sofifa.net/players/158/023/23_120.png"
     },
     {
-        id: 1,
+        id: 2,
         nombre: "Ángel",
         apellido: "Hernández",
         seleccion: "Argentina",
@@ -19,7 +19,7 @@ const todosJugadores = [
         Imagen: "https://cdn.sofifa.net/players/183/898/23_120.png"
     },
     {
-        id: 2,
+        id: 3,
         nombre: "Cristiano",
         apellido: "Ronaldo",
         seleccion: "Portugal",
@@ -27,7 +27,7 @@ const todosJugadores = [
         Imagen: "https://cdn.sofifa.net/players/020/801/22_120.png"
     },
     {
-        id: 3,
+        id: 4,
         nombre: "Antonio",
         apellido: "Rüdiger",
         seleccion: "Germany",
