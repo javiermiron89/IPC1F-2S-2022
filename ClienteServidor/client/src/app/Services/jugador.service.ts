@@ -18,4 +18,8 @@ export class JugadorService {
     return this.http.get(`${this.API_URI}/todos`);
   }
 
+  ObtenerJugadorNombre(nombreJugador: string) : any {
+    return this.http.get(`${this.API_URI}/nombre/${nombreJugador}`);
+  }
+
 }

@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 d-flex justify-content-center mt-5">
+            <h1>Bienvenido <span class="badge bg-info">Login</span></h1>
+        </div>
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    Ingreso
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Coloque su informacion</h5>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Usuario</span>
+                        <input type="text" [(ngModel)]="nombreUsuario" class="form-control" name="nombreUsuario" placeholder="Nombre de Usuario" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon2">Password</span>
+                        <input type="password" [(ngModel)]="passwordUsuario" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon2">
+                    </div>
+
+                    <a (click)="Login()" class="btn btn-primary">Ingresar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
